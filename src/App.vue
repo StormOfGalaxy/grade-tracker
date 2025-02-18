@@ -172,7 +172,7 @@ const mode = useColorMode();
     >
       <h1 class="text-3xl font-semibold">Home</h1>
       <div>
-        <Card v-for="subject in subjects" :key="subject.name" class="mb-4">
+        <Card v-for="subject in subjects" :key="subject.name" class="mt-4">
           <CardHeader>
             <CardTitle>{{ subject.name }}</CardTitle>
             <CardDescription>
