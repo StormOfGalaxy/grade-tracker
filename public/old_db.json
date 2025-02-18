@@ -1,0 +1,44 @@
+{
+  "subjects": [
+    {
+      "name": "Math",
+      "grades": [
+        { "type": "SA", "weight": 2, "grade": 2 },
+        { "type": "EX", "weight": 1, "grade": 3 },
+        { "type": "SA", "weight": 2, "grade": 1 }
+      ]
+    },
+    {
+      "name": "German",
+      "grades": [
+        { "type": "SA", "weight": 2, "grade": 3 },
+        { "type": "EX", "weight": 1, "grade": 2 },
+        { "type": "SA", "weight": 2, "grade": 4 }
+      ]
+    },
+    {
+      "name": "English",
+      "grades": [
+        { "type": "SA", "weight": 2, "grade": 1 },
+        { "type": "EX", "weight": 1, "grade": 2 },
+        { "type": "SA", "weight": 2, "grade": 3 }
+      ]
+    },
+    {
+      "name": "Biology",
+      "grades": [
+        { "type": "SA", "weight": 2, "grade": 1 },
+        { "type": "EX", "weight": 1, "grade": 2 },
+        { "type": "SA", "weight": 2, "grade": 3 }
+      ]
+    },
+    {
+      "name": "Physics",
+      "grades": [
+        { "type": "SA", "weight": 2, "grade": 4 },
+        { "type": "EX", "weight": 1, "grade": 3 },
+        { "type": "SA", "weight": 2, "grade": 2 }
+      ]
+    }
+  ]
+}

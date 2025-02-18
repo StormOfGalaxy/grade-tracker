@@ -1,0 +1,446 @@
+{
+  "subjects": [
+    {
+      "name": "Deutsch",
+      "abbreviation": "D",
+      "teacher": "Mü",
+      "grades": [
+        {
+          "category": "gLN",
+          "weight": 2,
+          "grades": [
+            {
+              "type": "SA",
+              "weight": 2,
+              "grade": 2
+            }
+          ]
+        },
+        {
+          "category": "kLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "UB",
+              "weight": 1,
+              "grade": 2
+            },
+            {
+              "type": "pL",
+              "weight": 1,
+              "grade": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Englisch",
+      "abbreviation": "E",
+      "teacher": "Gt, KS",
+      "grades": [
+        {
+          "category": "gLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "SA",
+              "weight": 1,
+              "grade": 2
+            }
+          ]
+        },
+        {
+          "category": "kLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "akL",
+              "weight": 1,
+              "grade": 3
+            },
+            {
+              "type": "A",
+              "weight": 1,
+              "grade": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Latein",
+      "abbreviation": "L",
+      "teacher": "Wi",
+      "grades": [
+        {
+          "category": "gLN",
+          "weight": 2,
+          "grades": [
+            {
+              "type": "SA",
+              "weight": 2,
+              "grade": 2
+            }
+          ]
+        },
+        {
+          "category": "kLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "A",
+              "weight": 1,
+              "grade": 1
+            },
+            {
+              "type": "A",
+              "weight": 1,
+              "grade": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Evangelische Religion",
+      "abbreviation": "Ev",
+      "teacher": "JL",
+      "grades": [
+        {
+          "category": "kLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "UB",
+              "weight": 1,
+              "grade": 1
+            },
+            {
+              "type": "A",
+              "weight": 1,
+              "grade": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Geographie",
+      "abbreviation": "Geo",
+      "teacher": "OJ",
+      "grades": [
+        {
+          "category": "kLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "UB",
+              "weight": 1,
+              "grade": 2
+            },
+            {
+              "type": "akL",
+              "weight": 1,
+              "grade": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Geschichte",
+      "abbreviation": "G",
+      "teacher": "Ki",
+      "grades": [
+        {
+          "category": "kLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "UB",
+              "weight": 1,
+              "grade": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Politik und Gesellschaft",
+      "abbreviation": "PuG",
+      "teacher": "SE",
+      "grades": [
+        {
+          "category": "gLN",
+          "weight": 2,
+          "grades": []
+        },
+        {
+          "category": "kLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "UB",
+              "weight": 1,
+              "grade": 2
+            },
+            {
+              "type": "KAN",
+              "weight": 2,
+              "grade": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Biologie",
+      "abbreviation": "B",
+      "teacher": "Kl",
+      "grades": [
+        {
+          "category": "kLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "P",
+              "weight": 1,
+              "grade": 2
+            },
+            {
+              "type": "KAN",
+              "weight": 2,
+              "grade": 2
+            },
+            {
+              "type": "P",
+              "weight": 1,
+              "grade": 1
+            },
+            {
+              "type": "UB",
+              "weight": 1,
+              "grade": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Chemie",
+      "abbreviation": "C",
+      "teacher": "MS",
+      "grades": [
+        {
+          "category": "kLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "UB",
+              "weight": 1,
+              "grade": 2
+            },
+            {
+              "type": "KAN",
+              "weight": 2,
+              "grade": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mathe",
+      "abbreviation": "M",
+      "teacher": "LS",
+      "grades": [
+        {
+          "category": "gLN",
+          "weight": 2,
+          "grades": [
+            {
+              "type": "SA",
+              "weight": 2,
+              "grade": 2
+            }
+          ]
+        },
+        {
+          "category": "kLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "akL",
+              "weight": 1,
+              "grade": 2
+            },
+            {
+              "type": "UB",
+              "weight": 1,
+              "grade": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Physik",
+      "abbreviation": "Ph",
+      "teacher": "DB",
+      "grades": [
+        {
+          "category": "gLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "SA",
+              "weight": 2,
+              "grade": 1
+            }
+          ]
+        },
+        {
+          "category": "kLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "UB",
+              "weight": 1,
+              "grade": 2
+            },
+            {
+              "type": "P",
+              "weight": 1,
+              "grade": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Kunst",
+      "abbreviation": "Ku",
+      "teacher": "ES",
+      "grades": [
+        {
+          "category": "kLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "pL",
+              "weight": 1,
+              "grade": 1
+            },
+            {
+              "type": "pL",
+              "weight": 1,
+              "grade": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Musik",
+      "abbreviation": "Mu",
+      "teacher": "AK",
+      "grades": [
+        {
+          "category": "gLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "SA",
+              "weight": 2,
+              "grade": 1
+            }
+          ]
+        },
+        {
+          "category": "kLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "UB",
+              "weight": 1,
+              "grade": 1
+            },
+            {
+              "type": "UB",
+              "weight": 1,
+              "grade": 1
+            }
+          ]
+        },
+        {
+          "category": "pLN",
+          "weight": 2,
+          "grades": [
+            {
+              "type": "K",
+              "weight": 1,
+              "grade": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sport",
+      "abbreviation": "Sm",
+      "teacher": "He",
+      "grades": [
+        {
+          "category": "kLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "pL",
+              "weight": 1,
+              "grade": 2
+            },
+            {
+              "type": "pL",
+              "weight": 1,
+              "grade": 2
+            },
+            {
+              "type": "pL",
+              "weight": 1,
+              "grade": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Wirtschaft und Recht",
+      "abbreviation": "WR",
+      "teacher": "Sk",
+      "grades": [
+        {
+          "category": "kLN",
+          "weight": 1,
+          "grades": [
+            {
+              "type": "UB",
+              "weight": 1,
+              "grade": 2
+            },
+            {
+              "type": "akL",
+              "weight": 1,
+              "grade": 2
+            },
+            {
+              "type": "akL",
+              "weight": 1,
+              "grade": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
