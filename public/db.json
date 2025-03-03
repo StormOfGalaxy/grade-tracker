@@ -13,6 +13,11 @@
               "type": "SA",
               "weight": 2,
               "grade": 2
+            },
+            {
+              "type": "SA",
+              "weight": 2,
+              "grade": 2
             }
           ]
         },
