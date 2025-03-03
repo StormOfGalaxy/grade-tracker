@@ -65,9 +65,22 @@ const calculateAverage = (categories: Category[]): string => {
   let weightedSum = 0;
 
   for (const category of categories) {
+    let categoryGradeSum = 0;
+    let categoryWeightSum = 0;
+
     for (const grade of category.grades) {
-      totalWeight += grade.weight * category.weight;
-      weightedSum += grade.grade * grade.weight * category.weight;
+      categoryGradeSum += grade.grade * grade.weight;
+      categoryWeightSum += grade.weight;
+    }
+
+    const categoryAverage =
+      categoryWeightSum > 0 ? categoryGradeSum / categoryWeightSum : 0;
+
+    if (categoryWeightSum > 0) {
+      weightedSum += categoryAverage * category.weight;
+      totalWeight += category.weight;
+    } else {
+      console.info(`Category ${category.category} has no grades. Skipping.`);
     }
   }
 
@@ -75,7 +88,7 @@ const calculateAverage = (categories: Category[]): string => {
     return "N/A";
   }
 
-  return (weightedSum / totalWeight).toFixed(2);
+  return (Math.floor((weightedSum / totalWeight) * 100) / 100).toFixed(2);
 };
 
 const mode = useColorMode();
@@ -207,5 +220,10 @@ const mode = useColorMode();
         </Card>
       </div>
     </main>
+    <footer>
+      <p class="text-center text-muted-foreground bg-muted/40 text-sm py-4">
+        &copy; 2025 Grade Tracker
+      </p>
+    </footer>
   </div>
 </template>
