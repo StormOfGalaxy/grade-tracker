@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Button } from "@/components/ui/button";
-
 import {
   Card,
   CardContent,
@@ -8,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-
 import {
   Table,
   TableBody,
@@ -17,7 +15,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -25,10 +22,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, GraduationCap, Moon, Sun } from "lucide-vue-next";
-import { useColorMode } from "@vueuse/core";
 
-import { ref, onMounted } from "vue";
+import { Menu, GraduationCap, Moon, Sun } from "lucide-vue-next";
+
+import { supabase } from "@/utils/supabase";
+
+import { useColorMode } from "@vueuse/core";
+import { ref, onMounted, onUnmounted } from "vue";
+import LoginForm from "./components/LoginForm.vue";
 
 type GradeEntry = {
   type: string;
@@ -37,28 +38,135 @@ type GradeEntry = {
 };
 
 type Category = {
-  category: string;
+  name: string;
   weight: number;
   grades: GradeEntry[];
 };
 
 type Subject = {
   name: string;
-  grades: Category[];
+  abbreviation: string;
+  teacher: string;
+  categories: {
+    name: string;
+    weight: number;
+    grades: {
+      type: string;
+      weight: number;
+      grade: number;
+    }[];
+  }[];
+};
+
+// Add these new refs for authentication
+const user = ref<any>(null);
+const email = ref("");
+const password = ref("");
+const error = ref<string | null>(null);
+
+// Add these authentication functions
+const signIn = async () => {
+  try {
+    const {
+      data: { user: signedInUser },
+      error: signInError,
+    } = await supabase.auth.signInWithPassword({
+      email: email.value,
+      password: password.value,
+    });
+
+    if (signInError) {
+      throw signInError;
+    }
+
+    user.value = signedInUser;
+    error.value = null;
+    console.log("User signed in:", user.value);
+    // You can now fetch data after successful login
+    await loadData();
+  } catch (err: any) {
+    error.value = err.message;
+    console.error("Error signing in:", error.value);
+  }
+};
+
+// Rename your existing data loading to this function
+const loadData = async () => {
+  try {
+    const { data, error } = await supabase.from("subjects").select(`
+      name,
+      abbreviation,
+      teacher,
+      categories (
+        name,
+        weight,
+        grades (
+          type,
+          weight,
+          grade
+        )
+      )
+    `);
+    if (error) throw error;
+    subjects.value = data;
+  } catch (err) {
+    console.error("Error while loading data from Supabase:", err);
+  }
+};
+
+const logOut = async () => {
+  const { error: signOutError } = await supabase.auth.signOut();
+  if (signOutError) {
+    console.error("Error signing out:", signOutError.message);
+  } else {
+    user.value = null;
+    console.log("User signed out");
+  }
 };
 
 const subjects = ref<Subject[]>([]);
 
+let authSubscription: { unsubscribe: () => void } | null = null;
+
 onMounted(async () => {
   try {
-    const response = await fetch("/db.json");
-    const data = await response.json();
-    console.log("Loaded Data:", data);
-    subjects.value = data.subjects;
-  } catch (error) {
-    console.error("Error while loading data:", error);
+    const {
+      data: { user: currentUser },
+    } = await supabase.auth.getUser();
+    if (currentUser) {
+      user.value = currentUser;
+      await loadData();
+    }
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === "SIGNED_OUT") {
+        user.value = null;
+        subjects.value = [];
+      } else if (event === "SIGNED_IN" && session) {
+        user.value = session.user;
+        loadData();
+      }
+    });
+
+    authSubscription = subscription;
+  } catch (err) {
+    console.error("Error checking authentication:", err);
   }
 });
+
+onUnmounted(() => {
+  if (authSubscription) {
+    authSubscription.unsubscribe();
+  }
+});
+
+const handleLogin = (credentials: any) => {
+  email.value = credentials.email;
+  password.value = credentials.password;
+  signIn();
+};
 
 const calculateAverage = (categories: Category[]): string => {
   let totalWeight = 0;
@@ -80,7 +188,7 @@ const calculateAverage = (categories: Category[]): string => {
       weightedSum += categoryAverage * category.weight;
       totalWeight += category.weight;
     } else {
-      console.info(`Category ${category.category} has no grades. Skipping.`);
+      console.info(`Category ${category.name} has no grades. Skipping.`);
     }
   }
 
@@ -161,44 +269,51 @@ const mode = useColorMode();
           </nav>
         </SheetContent>
       </Sheet>
-      <DropdownMenu>
-        <DropdownMenuTrigger as-child>
-          <Button variant="outline">
-            <Moon
-              class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-            />
-            <Sun
-              class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
-            />
-            <span class="sr-only">Toggle theme</span>
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
-          <DropdownMenuItem @click="mode = 'light'"> Light </DropdownMenuItem>
-          <DropdownMenuItem @click="mode = 'dark'"> Dark </DropdownMenuItem>
-          <DropdownMenuItem @click="mode = 'auto'"> System </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      <div class="flex gap-4">
+        <DropdownMenu>
+          <DropdownMenuTrigger as-child>
+            <Button variant="outline">
+              <Moon
+                class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+              />
+              <Sun
+                class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+              />
+              <span class="sr-only">Toggle theme</span>
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem @click="mode = 'light'"> Light </DropdownMenuItem>
+            <DropdownMenuItem @click="mode = 'dark'"> Dark </DropdownMenuItem>
+            <DropdownMenuItem @click="mode = 'auto'"> System </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <Button v-if="user" @click="logOut">Log out</Button>
+      </div>
     </header>
     <main
       class="flex min-h-[calc(100vh_-_theme(spacing.16))] flex-1 flex-col gap-4 bg-muted/40 p-4 md:gap-8 md:p-10"
     >
       <h1 class="text-3xl font-semibold">Home</h1>
-      <div>
+      <div v-if="!user">
+        <LoginForm @login="handleLogin" />
+      </div>
+      <div v-if="error" class="text-red-500 text-sm">{{ error }}</div>
+      <div v-if="user">
         <Card v-for="subject in subjects" :key="subject.name" class="mt-4">
           <CardHeader>
             <CardTitle>{{ subject.name }}</CardTitle>
             <CardDescription>
-              Average: {{ calculateAverage(subject.grades) }}
+              Average: {{ calculateAverage(subject.categories) }}
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div
-              v-for="category in subject.grades"
-              :key="category.category"
+              v-for="category in subject.categories"
+              :key="category.name"
               class="mb-2"
             >
-              <h3>{{ category.category }}</h3>
+              <h3>{{ category.name }}</h3>
               <Table>
                 <TableHeader>
                   <TableRow>
